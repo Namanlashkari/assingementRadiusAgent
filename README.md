@@ -27,5 +27,11 @@ Solution1:
     The command and links for the same are attached below,
     
     
+Soltion2:
+   
+    This contains the second solution and brief discussion on the same solutin appproach.
     
+
+ Soltion3:
     
+      This contains the third solution and brief discussion on the same solutin appproach.
