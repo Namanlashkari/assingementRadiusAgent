@@ -29,7 +29,10 @@ Solution1:
     
 Solution2:
    
-    This contains the second solution and brief discussion on the same solution appproach.
+    This contains the second solution and brief discussion on implenting and working with quadtrees and how indexing can help 
+    better the solution and retrival of data.
+    
+    An extended discussion will be comparing the cost of write operation vs the read operations making a call based on it.
     
 
  Solution3:
