@@ -30,6 +30,7 @@ Solution1:
     optimal search and perform operations on the same via calculating weights according to the provided criteria and produce 
     solution using RESTAPI structure.
     
+    The plan was to get result using flask api calls on a webui or and sorted list of response via POSTMAN.
     
     
 Solution2:
