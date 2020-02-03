@@ -29,9 +29,9 @@ Solution1:
     
 Solution2:
    
-    This contains the second solution and brief discussion on the same solutin appproach.
+    This contains the second solution and brief discussion on the same solution appproach.
     
 
  Solution3:
     
-      This contains the third solution and brief discussion on the same solutin appproach.
+      This contains the third solution and brief discussion on the same solution appproach.
