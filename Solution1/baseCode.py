@@ -5,7 +5,7 @@ try:
     conn = mysql.connector.connect(host='localhost',
                                          database='realestate',
                                          user='root',
-                                         password='Nick7497@backtobasic',
+                                         password='**********',
                                          auth_plugin='mysql_native_password')
 
     '''
