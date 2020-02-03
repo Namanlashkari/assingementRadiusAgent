@@ -23,8 +23,13 @@ Suggestions :
 Solution1:
 
     This contains the first solution, it requires you to setup your flask server for handling the rest API's.
-    Also it requires you to have python3, MYSQL & MYSql work bench for local database hosting on your machine.   
-    The command and links for the same are attached below,
+    Also it requires you to have python3, MYSQL for local database hosting on your machine.   
+    The command and links for the same are attached below.
+    
+    The solution is an unsuccessful attempt at creating a fully functional service which retrieves data from the data in an 
+    optimal search and perform operations on the same via calculating weights according to the provided criteria and produce 
+    solution using RESTAPI structure.
+    
     
     
 Solution2:
