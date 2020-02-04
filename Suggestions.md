@@ -58,4 +58,64 @@ Spark uses :
     applications consist of a driver process and executor processes. Briefly put, the driver process runs the main function, 
     and analyzes and distributes work across the executors.
 
+Using BoundBox for selecting points within a fixed range:
+       
+       This is the trivial approach without involving spatial indexes. We find a bounding box for our point and radius then 
+       simply search on the Latitude and Longitude columns. If both are indexed this search should be very fast. We'll have to 
+       apply the distance function to filter out some values outside the "circle" but withing the bounding box. But that 
+       should be pretty fast. 
+       
+       
+   CODE :
+        
+        $db = new PDO($dsn, $username, $password);
+        $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 
+        $lat = $_GET['lat']; // latitude of centre of bounding circle in degrees
+        $lon = $_GET['lon']; // longitude of centre of bounding circle in degrees
+        $rad = $_GET['rad']; // radius of bounding circle in kilometers
+
+        $R = 6371;  // earth's mean radius, km
+
+        // first-cut bounding box (in degrees)
+        $maxLat = $lat + rad2deg($rad/$R);
+        $minLat = $lat - rad2deg($rad/$R);
+        $maxLon = $lon + rad2deg(asin($rad/$R) / cos(deg2rad($lat)));
+        $minLon = $lon - rad2deg(asin($rad/$R) / cos(deg2rad($lat)));
+
+        $sql = "Select Id, Postcode, Lat, Lon,      
+                acos(sin(:lat)*sin(radians(Lat)) + cos(:lat)*cos(radians(Lat))*cos(radians(Lon)-:lon)) * :R As D
+                From (
+                Select Id, Postcode, Lat, Lon
+                From MyTable
+                Where Lat Between :minLat And :maxLat
+                      And Lon Between :minLon And :maxLon
+                ) As FirstCut
+                Where acos(sin(:lat)*sin(radians(Lat)) + cos(:lat)*cos(radians(Lat))*cos(radians(Lon)-:lon)) * :R < :rad
+                Order by D";
+        $params = [
+            'lat'    => deg2rad($lat),
+            'lon'    => deg2rad($lon),
+            'minLat' => $minLat,
+            'minLon' => $minLon,
+            'maxLat' => $maxLat,
+            'maxLon' => $maxLon,
+            'rad'    => $rad,
+            'R'      => $R,
+             ];
+        $points = $db->prepare($sql);
+        $points->execute($params);
+    ?>
+    
+    <html>
+        <table>
+        <? foreach ($points as $point): ?>
+        <tr>
+            <td><?= $point->Postcode ?></td>
+            <td><?= number_format($point->Lat,4) ?></td>
+            <td><?= number_format($point->Lon,4) ?></td>
+            <td><?= number_format($point->D,3) ?></td>
+        </tr>
+        <? endforeach ?>
+        </table>
+    </html>
