@@ -150,5 +150,3 @@ class AgentDeskSearchMatch(object):
         else:
             bedroom_min_wt = 0
         return bathroom_max_wt
-
-AgentDeskSearchMatch(12.9876, 77.675, 15000, 2, 2).get_search_matches()
